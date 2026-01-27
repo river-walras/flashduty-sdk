@@ -1,0 +1,19 @@
+[package]
+name = "flashduty-sdk"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+crossbeam-channel = "0.5"
+reqwest = { version = "0.12", features = ["json", "blocking"] }
+serde = { version = "1", features = ["derive", "rc"] }
+serde_json = "1"
+pyo3 = { version = "0.23", optional = true }
+log = "0.4"
+
+[features]
+default = []
+python = ["pyo3", "pyo3/extension-module"]
