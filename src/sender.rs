@@ -62,6 +62,7 @@ fn send_once(client: &Client, event: &AlertEvent) -> Result<(), String> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::models::EventStatus;
     use std::collections::HashMap;
     use std::sync::Arc;
 
@@ -71,7 +72,7 @@ mod tests {
         let client = Client::new();
         let event = AlertEvent {
             integration_key: Arc::from("test-key"),
-            event_status: "Warning".to_string(),
+            event_status: EventStatus::Warning,
             title_rule: "test alert".to_string(),
             alert_key: None,
             description: None,

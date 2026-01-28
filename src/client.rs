@@ -1,4 +1,4 @@
-use crate::models::{AlertEvent, Image};
+use crate::models::{AlertEvent, EventStatus, Image};
 use crate::sender::send_with_retry;
 use crossbeam_channel::{Sender, unbounded};
 use log::info;
@@ -39,7 +39,7 @@ impl FlashDutyClient {
 
     pub fn send_alert(
         &self,
-        event_status: String,
+        event_status: EventStatus,
         title_rule: String,
         alert_key: Option<String>,
         description: Option<String>,
@@ -100,7 +100,7 @@ mod tests {
         let mut client = FlashDutyClient::new("test-key".to_string());
         // Enqueue an event (will fail to send but should not panic)
         client.send_alert(
-            "Warning".to_string(),
+            EventStatus::Warning,
             "test alert".to_string(),
             None,
             None,
@@ -118,7 +118,7 @@ mod tests {
         client.shutdown();
         // This should not panic
         client.send_alert(
-            "Warning".to_string(),
+            EventStatus::Warning,
             "ignored alert".to_string(),
             None,
             None,

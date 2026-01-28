@@ -1,10 +1,12 @@
-from typing import Optional
+from typing import Literal, Optional
+
+EventStatus = Literal["Ok", "Info", "Warning", "Critical"]
 
 class FlashDutyClient:
     def __init__(self, integration_key: str) -> None: ...
     def send_alert(
         self,
-        event_status: str,
+        event_status: EventStatus,
         title_rule: str,
         alert_key: Optional[str] = None,
         description: Optional[str] = None,
